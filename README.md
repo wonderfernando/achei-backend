@@ -24,6 +24,10 @@ Aplicativo para procurar pessoas desaparecidas
 - Deve ser possivel comentario do usuario logado
 - Deve ser possivel Editar comentario do usuario logado
 - Deve ser possivel tirar gosto da publicacao
+- Um publicacao deve ter pelo menos uma foto
+- Deve ser possivel buscar total de gostos da publicacao
+- Deve ser possivel buscar total de commentarios da publicacao
+- Deve ser possivel listar todos os comentarios da publicacao
 
 ## Regras de Negocios
 
