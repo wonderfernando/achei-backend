@@ -4,10 +4,10 @@ Aplicativo para procurar pessoas desaparecidas
 
 # Requisitos Funcionais
 
-- Fazer Registro de usuario
-- Fazer login de usuario
+- Fazer Registro de usuario [x]
+- Fazer login de usuario [x]
 
-- Deve ser possivel listar todas publicacoes
+- Deve ser possivel listar todas publicacoes []
 - Deve ser possivel listar publicacoes por provincias
 - Deve ser possivel listar publicacoes por proximidade (Ate 100m)
 - Deve ser possivel listar publicacoes por faixa etária
@@ -41,6 +41,6 @@ Aplicativo para procurar pessoas desaparecidas
 
 ## R N funcionais
 
-- A senha deve ser criptografada
+- A senha deve ser criptografada [x]
 - A autenticao deve ser feita com JWT
 - Deve listar 20 publicacoes por vez
