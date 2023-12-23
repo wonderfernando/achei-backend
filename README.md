@@ -7,19 +7,21 @@ Aplicativo para procurar pessoas desaparecidas
 - Fazer Registro de usuario [x]
 - Fazer login de usuario [x]
 
-- Deve ser possivel listar todas publicacoes []
-- Deve ser possivel listar publicacoes por provincias
-- Deve ser possivel listar publicacoes por proximidade (Ate 100m)
-- Deve ser possivel listar publicacoes por faixa etária
-- Deve ser possivel listar publicacoes por fotos (IA)
+- Deve ser possivel alterar a senha pelo email ou telefone [x]
+- Deve ser possivel editar perfil de usuario logado [x]
+- Deve ser possivel excluir perfil do usuario logado [x]
+- Deve ser possivel visualizar perfil do usuario logado [x]
+
+- Deve ser possivel listar todas publicacoes [x]
+- Deve ser possivel listar publicacoes por provincias [x]
+- Deve ser possivel listar publicacoes por proximidade (Ate 100m) --- PENDENTE!!!
+- Deve ser possivel listar publicacoes por faixa etária []
+- Deve ser possivel listar publicacoes por fotos (IA) -- PENDENTE!!!
 - Fazer uma Publicacao de alguem desaparecido
 - Fazer uma publicacao de alguem encontrado
-- Deve ser possivel visualizar perfil do usuario logado
+
 - Deve ser possivel Comentar em uma publicacao
 - Deve ser possivel gostar de uma publicacao
-- Deve ser possivel alterar a senha pelo email ou telefone
-- Deve ser possivel editar perfil de usuario logado
-- Deve ser possivel excluir perfil do usuario logado
 - Deve ser possivel excluir publicacao do usuario logado
 - Deve ser possivel comentario do usuario logado
 - Deve ser possivel Editar comentario do usuario logado

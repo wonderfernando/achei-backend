@@ -1,4 +1,4 @@
-interface IPost{
+export interface IPost{
     id?:string,
     title:string,
     description:string,
@@ -9,5 +9,13 @@ interface IPost{
     user_id: string,
     latitude?: number,
     longitude?: number,
+    gender: string,
+    status: string,
+    age_id:string,
+    disaperAt?: Date|string,
+    foundAt?: Date|string,
+    localFound?: string,
+    localDisaper?:string,
+    city_id: string, 
     createdAt?: Date|string,
 }

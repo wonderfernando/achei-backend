@@ -3,6 +3,7 @@ import { UserRepositoryMemory } from "../src/repositories/InMemory/UserRepositor
 import { UserRegisterService } from "../src/services/UserRegisterService";
 import { UserAuthService } from "../src/services/UserAuthService";
 import { hash } from "bcryptjs";
+import { ResourceDontExist } from "../src/errors/ResourceDontExists";
 
 describe("users auth", () => {
     it("should be possible auth a user",async () => {
@@ -16,6 +17,6 @@ describe("users auth", () => {
     it("should not be possible auth a user that not exists",async () => {
         const userRepository = new UserRepositoryMemory()
         const userAuthService = new UserAuthService(userRepository)
-       await expect(userAuthService.execute({email:"fernanod@gmail.com",password:"123"})).rejects.toBeInstanceOf(Error)
+       await expect(userAuthService.execute({email:"fernanod@gmail.com",password:"123"})).rejects.toBeInstanceOf(ResourceDontExist)
     })
 })

@@ -9,10 +9,24 @@ export class UserRepositoryMemory implements IUserRepository {
         this.users.push(newUser)    
         return newUser
     };
-    update: (data: IUser, id: string) => Promise<IUser | null>;
-    delete: (id: string) => boolean;
-    list: () => Promise<IUser[]>;
-    findById: (id: string) => Promise<IUser | null>;
+    async update (data: IUser, id: string) {
+        const indexOf = this.users.findIndex(user => user.id===id)
+        this.users[indexOf] = data
+        console.log("-----",data)
+        return data
+    }
+    async delete (id: string){
+        const newUsers = this.users.filter(user=> user.id===id) 
+        this.users = newUsers
+        return true
+    };
+    async list(){
+        return this.users
+    }
+    async findById (id: string){
+        const user = this.users.find(user => user.id===id)
+        return user || null
+    };
     async findByEmail(email:string){
         const user = this.users.find(user => user.email === email)
         return user || null

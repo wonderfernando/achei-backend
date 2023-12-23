@@ -1,5 +1,6 @@
 import { compare } from "bcryptjs";
 import { IUserRepository } from "../repositories/UserRepository";
+import { ResourceDontExist } from "../errors/ResourceDontExists";
 
 interface IUserAuth{
     email:string, 
@@ -10,12 +11,12 @@ export class UserAuthService {
     async execute(data: IUserAuth){
         const user = await this.userRepository.findByEmail(data.email)
         if (!user) {
-            throw new Error("Resource dont exists")
+            throw new ResourceDontExist()
         }
         const isEqual = await compare(data.password, user.password)
         
         if (!isEqual) 
-            throw new Error("Resource dont exists")
+            throw new ResourceDontExist()
 
         return user;
     }
