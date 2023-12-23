@@ -2,6 +2,7 @@ import { randomUUID } from "crypto";
 import { IPost } from "../../entitites/Post";
 import { IPostRepository } from "../PostRepository";
 import { IAgeRepository } from "../AgeRepository";
+import { IAge } from "../../entitites/Age";
 
 
 export class AgeRepositoryInMemory implements IAgeRepository {

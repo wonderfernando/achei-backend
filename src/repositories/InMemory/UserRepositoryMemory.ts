@@ -12,7 +12,6 @@ export class UserRepositoryMemory implements IUserRepository {
     async update (data: IUser, id: string) {
         const indexOf = this.users.findIndex(user => user.id===id)
         this.users[indexOf] = data
-        console.log("-----",data)
         return data
     }
     async delete (id: string){
