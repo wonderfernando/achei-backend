@@ -1,9 +1,4 @@
 import { describe, expect, it } from "vitest";
-import { UserRepositoryMemory } from "../src/repositories/InMemory/UserRepositoryMemory";
-import { UserRegisterService } from "../src/services/UserRegisterService";
-import { hash } from "bcryptjs";
-import { DeleteProfileService } from "../src/services/DeleteProfile";
-import { ResourceDontExist } from "../src/errors/ResourceDontExists";
 import { RemoveCommentService } from "../src/services/RemoveCommentService";
 import { CommentRepositoryInMemory } from "../src/repositories/InMemory/CommentRepositoryMemory";
 describe("profile delete", () => {
