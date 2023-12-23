@@ -21,9 +21,12 @@ export class CommentRepositoryInMemory implements ICommentRepository {
         return data
     }
     async delete (id: string){
-        const newcomments = this.comments.filter(comment=> comment.id===id) 
-        this.comments = newcomments
-        return true
+        const newcomments = this.comments.filter(comment=> comment.id !== id) 
+        if (newcomments.length<this.comments.length) {
+            this.comments = newcomments
+            return true
+        }
+        return false
     };
     async list(){
         return this.comments

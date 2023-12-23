@@ -18,7 +18,7 @@ export class PostRepositoryInMemory implements IPostRepository {
         return data
     }
     async delete (id: string){
-        const newUsers = this.posts.filter(user=> user.id===id) 
+        const newUsers = this.posts.filter(user=> user.id!==id) 
         this.posts = newUsers
         return true
     };

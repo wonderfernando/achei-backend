@@ -15,7 +15,7 @@ export class UserRepositoryMemory implements IUserRepository {
         return data
     }
     async delete (id: string){
-        const newUsers = this.users.filter(user=> user.id===id) 
+        const newUsers = this.users.filter(user=> user.id!==id) 
         this.users = newUsers
         return true
     };
