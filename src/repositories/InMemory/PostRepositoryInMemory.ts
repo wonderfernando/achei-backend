@@ -15,7 +15,6 @@ export class PostRepositoryInMemory implements IPostRepository {
     async update (data: IPost, id: string) {
         const indexOf = this.posts.findIndex(user => user.id===id)
         this.posts[indexOf] = data
-        console.log("-----",data)
         return data
     }
     async delete (id: string){
@@ -45,5 +44,8 @@ export class PostRepositoryInMemory implements IPostRepository {
         const posts = this.posts.filter(post => post.name.includes(name))
         return posts 
     }
-
+  async search(name: string, provinceId: any, ageId: any): Promise<IPost[]> {
+        throw new Error("Method not implemented.");
+    }
+  
 }
