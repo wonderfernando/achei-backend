@@ -14,11 +14,14 @@ Aplicativo para procurar pessoas desaparecidas
 
 - Deve ser possivel listar todas publicacoes [x]
 - Deve ser possivel listar publicacoes por provincias [x]
+- Deve ser possivel listar por nome []
+- Deve ser possivel listar por filtros dinamicos []
+
 - Deve ser possivel listar publicacoes por proximidade (Ate 100m) --- PENDENTE!!!
-- Deve ser possivel listar publicacoes por faixa etária []
+- Deve ser possivel listar publicacoes por faixa etária [x]
 - Deve ser possivel listar publicacoes por fotos (IA) -- PENDENTE!!!
-- Fazer uma Publicacao de alguem desaparecido
-- Fazer uma publicacao de alguem encontrado
+- Fazer uma Publicacao de alguem desaparecido []
+- Fazer uma publicacao de alguem encontrado []
 
 - Deve ser possivel Comentar em uma publicacao
 - Deve ser possivel gostar de uma publicacao

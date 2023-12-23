@@ -4,7 +4,7 @@ import { IPostRepository } from "../PostRepository";
 
 
 export class PostRepositoryInMemory implements IPostRepository {
-
+  
     posts: IPost[] = []
 
     async create (data: IPost) { 
@@ -41,5 +41,9 @@ export class PostRepositoryInMemory implements IPostRepository {
         const posts = this.posts.filter(post => post.age_id ===ageId)
         return posts
     }
-  
+    async searchByName(name: string): Promise<IPost[]> {
+        const posts = this.posts.filter(post => post.name.includes(name))
+        return posts 
+    }
+
 }
