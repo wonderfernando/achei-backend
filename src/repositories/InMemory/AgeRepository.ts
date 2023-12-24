@@ -14,10 +14,11 @@ export class AgeRepositoryInMemory implements IAgeRepository {
         this.ages.push(newAge)    
         return newAge
     };
-    async update (data: IAge, id: string) {
+    async update (data:{[key:string]:any}, id: string) {
         const indexOf = this.ages.findIndex(age => age.id===id)
-        this.ages[indexOf] = data
-        return data
+        const age = this.ages[indexOf]
+        this.ages[indexOf] = {...age,...data}
+        return this.ages[indexOf]
     }
     async delete (id: string){
         const newAges = this.ages.filter(age=> age.id===id) 

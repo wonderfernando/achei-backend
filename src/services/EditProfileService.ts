@@ -17,7 +17,7 @@ export class EditProfileService {
          
         if(!user)
             throw new ResourceDontExist()
-       const newUser = {...user, ...data}
-       return this.userRepository.update(newUser, id)    
+ 
+       return await this.userRepository.update(data, id)    
     }
 }

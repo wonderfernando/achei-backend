@@ -9,10 +9,11 @@ export class UserRepositoryMemory implements IUserRepository {
         this.users.push(newUser)    
         return newUser
     };
-    async update (data: IUser, id: string) {
+    async update (data: {[key:string]: any}, id: string) {
         const indexOf = this.users.findIndex(user => user.id===id)
-        this.users[indexOf] = data
-        return data
+        const user = this.users[indexOf] 
+        this.users[indexOf] = {...user,...data}
+        return this.users[indexOf]
     }
     async delete (id: string){
         const newUsers = this.users.filter(user=> user.id!==id) 

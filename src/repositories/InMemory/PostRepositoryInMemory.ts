@@ -12,10 +12,11 @@ export class PostRepositoryInMemory implements IPostRepository {
         this.posts.push(newUser)    
         return newUser
     };
-    async update (data: IPost, id: string) {
-        const indexOf = this.posts.findIndex(user => user.id===id)
-        this.posts[indexOf] = data
-        return data
+    async update (data: { [key:string]: any}, id: string) {
+        const indexOf = this.posts.findIndex(post => post.id===id)
+        const post = this.posts[indexOf]
+        this.posts[indexOf] = {...post,...data}
+        return this.posts[indexOf]
     }
     async delete (id: string){
         const newUsers = this.posts.filter(user=> user.id!==id) 

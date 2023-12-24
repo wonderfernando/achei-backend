@@ -15,10 +15,11 @@ export class CommentRepositoryInMemory implements ICommentRepository {
         return newComment
     };
 
-    async update (data: IComment, id: string) {
+    async update (data: {[key:string]: any}, id: string) {
         const indexOf = this.comments.findIndex(comment => comment.id===id)
-        this.comments[indexOf] = data
-        return data
+        const comment =  this.comments[indexOf]
+        this.comments[indexOf] ={...comment,...data}
+        return  this.comments[indexOf]
     }
     async delete (id: string){
         const newcomments = this.comments.filter(comment=> comment.id !== id) 
@@ -35,7 +36,11 @@ export class CommentRepositoryInMemory implements ICommentRepository {
         const comment = this.comments.find(comment => comment.id===id)
         return comment || null
     };
-   
+    async foundByPostId(postId: string): Promise<IComment[]> {
+        const comments = this.comments.filter(comment=> comment.post_id===postId)
+        return comments
+    }
+
     
   
 }
