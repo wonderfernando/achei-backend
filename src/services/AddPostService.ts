@@ -1,6 +1,4 @@
-import { hash } from "bcryptjs";
 import { IUserRepository } from "../repositories/UserRepository";
-import { IUser } from "../entitites/User";
 import { ResourceDontExist } from "../errors/ResourceDontExists";
 import { IPostRepository } from "../repositories/PostRepository";
 import { IPost } from "../entitites/Post";
