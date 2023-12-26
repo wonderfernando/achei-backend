@@ -34,6 +34,7 @@ export class AuthController {
       try { 
             const {email, password} = schemaValidateLogin.parse(req.body)   
             const users = await this.userAuthService.execute({email,password})
+          
             res.status(200).send({users})
         } catch (err) {
             if (err instanceof ResourceDontExist) {
