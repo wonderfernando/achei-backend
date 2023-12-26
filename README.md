@@ -14,35 +14,37 @@ Aplicativo para procurar pessoas desaparecidas
 
 - Deve ser possivel listar todas publicacoes [x]
 - Deve ser possivel listar publicacoes por provincias [x]
-- Deve ser possivel listar por nome []
-- Deve ser possivel listar por filtros dinamicos []
+- Deve ser possivel listar por nome [x]
 
+- Deve ser possivel listar por filtros dinamicos [] --- PENDENTE!!!
 - Deve ser possivel listar publicacoes por proximidade (Ate 100m) --- PENDENTE!!!
-- Deve ser possivel listar publicacoes por faixa etária [x]
 - Deve ser possivel listar publicacoes por fotos (IA) -- PENDENTE!!!
-- Fazer uma Publicacao de alguem desaparecido []
-- Fazer uma publicacao de alguem encontrado []
 
-- Deve ser possivel Comentar em uma publicacao
-- Deve ser possivel gostar de uma publicacao
-- Deve ser possivel excluir publicacao do usuario logado
-- Deve ser possivel comentario do usuario logado
-- Deve ser possivel Editar comentario do usuario logado
-- Deve ser possivel tirar gosto da publicacao
-- Um publicacao deve ter pelo menos uma foto
-- Deve ser possivel buscar total de gostos da publicacao
-- Deve ser possivel buscar total de commentarios da publicacao
-- Deve ser possivel listar todos os comentarios da publicacao
+- Deve ser possivel listar publicacoes por faixa etária [x]
+- Fazer uma Publicacao de alguem desaparecido [x]
+- Fazer uma publicacao de alguem encontrado [x]
+- Deve ser possivel Comentar em uma publicacao [x]
+- Deve ser possivel excluir publicacao do usuario logado [x]
+- Deve ser possivel Editar publicacao do usuario logado [x]
+
+- Deve ser possivel gostar de uma publicacao [x]
+- Deve ser possivel buscar total de gostos da publicacao[x]
+- Deve ser possivel tirar gosto da publicacao[x]
+
+- Deve ser possivel listar todos os comentarios da publicacao [x]
+- Deve ser possivel excluir comentario do usuario logado [x]
+- Deve ser possivel Editar comentario do usuario logado [x]
 
 ## Regras de Negocios
 
-- O usuario não pode se cadastrar com email ou telefone duplicado
-- Não deve ser possivel gostar de uma publicao sem estar logado
-- Não deve ser possivel comentar sem estar logado no sistema
-- Não deve ser possivel publicar sem estar logado
+- Um publicacao deve ter pelo menos uma foto
+- O usuario não pode se cadastrar com email ou telefone duplicado[x]
+- Não deve ser possivel gostar de uma publicao sem estar logado[]
+- Não deve ser possivel comentar sem estar logado no sistema[x]
+- Não deve ser possivel publicar sem estar logado[x]
 - O tamanho das fotos deve ser menor ou igual a 2MB
 - Apenas formato (JPG, PNG, JPEG) são suportados
-- Só deve curtr uma publicaco uma unica vez
+- Só deve curtr uma publicaco uma vez
 
 ## R N funcionais
 
