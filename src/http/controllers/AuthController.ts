@@ -2,12 +2,10 @@ import { Request, Response } from "express";
 import {ZodError, z} from "zod" 
 import { UserRegisterService } from "../../services/UserRegisterService";
 import { UserRepositoryMemory } from "../../repositories/InMemory/UserRepositoryMemory";
-import { LOADIPHLPAPI } from "dns";
-import { linkSync } from "fs";
-import { ListAllusersService } from "../../services/ListAllUsersService";
 import { UserAuthService } from "../../services/UserAuthService";
 import { ResourceDontExist } from "../../errors/ResourceDontExists";
-
+import "dotenv/config"
+import jwt from "jsonwebtoken"
 const schemaValidateLogin = z.object({
     email: z.string().email("email is required!"),
     password: z.string().min(1,"password is required!")
@@ -33,9 +31,9 @@ export class AuthController {
     public login = async (req: Request, res: Response) => {
       try { 
             const {email, password} = schemaValidateLogin.parse(req.body)   
-            const users = await this.userAuthService.execute({email,password})
-          
-            res.status(200).send({users})
+            const user = await this.userAuthService.execute({email,password})
+            const token = jwt.sign(user.id!, process.env.JSONTOKEN!)
+            res.status(200).send({user,token})
         } catch (err) {
             if (err instanceof ResourceDontExist) {
                  res.status(401).send("senha ou email errado") 
