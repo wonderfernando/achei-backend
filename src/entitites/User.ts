@@ -5,6 +5,6 @@ export interface IUser{
     password: string,
     admin: boolean,
     phone: string,
-    city_id: string,
+     city_id: string,
     createdAt?: Date|string,
 }

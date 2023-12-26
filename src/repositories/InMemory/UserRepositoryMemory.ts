@@ -3,7 +3,7 @@ import { IUser } from "../../entitites/User";
 import { IUserRepository } from "../UserRepository";
 
 export class UserRepositoryMemory implements IUserRepository {
-    users: IUser[] = []
+   public users: IUser[] = []
     async create (data: IUser) { 
         const newUser = {...data, id: randomUUID()}
         this.users.push(newUser)    
