@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
-import {z} from "zod" 
+import {ZodError, z} from "zod" 
 import { UserRegisterService } from "../../services/UserRegisterService";
 import { UserRepositoryMemory } from "../../repositories/InMemory/UserRepositoryMemory";
 import { LOADIPHLPAPI } from "dns";
 import { linkSync } from "fs";
 import { ListAllusersService } from "../../services/ListAllUsersService";
 import { UserAuthService } from "../../services/UserAuthService";
+import { ResourceDontExist } from "../../errors/ResourceDontExists";
 
 const schemaValidateLogin = z.object({
     email: z.string().email("email is required!"),
@@ -23,16 +24,28 @@ const schemaValidateRegister = z.object({
 export class AuthController {
     private userRepository
     private userRegisterService 
-    private userAuthService
+    private userAuthService : UserAuthService
     constructor(){
         this.userRepository = new UserRepositoryMemory()
         this.userRegisterService = new UserRegisterService(this.userRepository)
         this.userAuthService=  new UserAuthService(this.userRepository)
      }
     public login = async (req: Request, res: Response) => {
-      const {email, password} = schemaValidateLogin.parse(req.body)   
-      const users = await this.userAuthService.execute()
-      res.send({users})
+      try { 
+            const {email, password} = schemaValidateLogin.parse(req.body)   
+            const users = await this.userAuthService.execute({email,password})
+            res.status(200).send({users})
+        } catch (err) {
+            if (err instanceof ResourceDontExist) {
+                 res.status(401).send("senha ou email errado") 
+            } 
+            if (err instanceof ZodError) {
+                res.status(403).send({code: err.issues}) 
+            }
+            console.log(err.message)
+            res.status(500).send()
+        }
+     
     }
     public register = async (req: Request, res: Response) => {
         const {email, password,admin,city_id,name,phone} = schemaValidateRegister.parse(req.body) 

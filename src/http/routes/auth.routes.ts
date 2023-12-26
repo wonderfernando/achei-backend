@@ -5,7 +5,7 @@ console.log("passou")
 const routes = Router()
 
 routes.post("/register", authController.register)
-routes.get("/login", authController.login)
+routes.post("/login", authController.login)
 
 
 export {routes}
