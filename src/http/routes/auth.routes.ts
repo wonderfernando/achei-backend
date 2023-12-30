@@ -4,9 +4,11 @@ import { UserController } from "../controllers/UserController"
 import { tokenValidate } from "../middlewares/tokenvalidate"
 const authController = new AuthController()
 const userController = new UserController()
+const postController = new PostController()
 import multer from "multer"
 import { resolve } from "path"
 import { multerConfig } from "../middlewares/uploadimg"
+import { PostController } from "../controllers/PostController"
 const routes = Router()
 routes.post("/register", authController.register)
 routes.post("/login", authController.login)
@@ -27,4 +29,9 @@ routes.post("/upload", m.single("arquivo") ,(req, res)=>{
     res.status(201).send("sucesso")
 })
 
+
+routes.get("/posts", postController.list)
+routes.get("/posts/:id", postController.get)
+routes.post("/posts", postController.store)
+routes.put("/posts/:id", postController.update)
 export {routes}
