@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model City {
+  id   String @id @default(uuid())
+  city String
+  User User[]
+  Post Post[]
+}
+
+model User {
+  id        String    @id @default(uuid())
+  name      String
+  email     String
+  password  String
+  admin     Boolean
+  phone     String
+  city      City      @relation(fields: [city_id], references: [id])
+  city_id   String
+  createdAt DateTime  @default(now())
+  Comment   Comment[]
+}
+
+model Post {
+  id           String    @id @default(uuid())
+  type         String
+  name         String
+  description  String
+  img          String
+  img2         String?
+  contact1     String
+  contact2     String?
+  user_id      String
+  latitude     Decimal?
+  longitude    Decimal?
+  gender       String
+  status       String
+  age_id       String
+  disaperAt    String?
+  foundAt      DateTime?
+  localFound   String?
+  localDisaper String?
+  city_id      String
+  city         City      @relation(fields: [city_id], references: [id])
+  createdAt    DateTime  @default(now())
+  Comment      Comment[]
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  comment   String
+  user_id   String
+  post_id   String
+  post      Post     @relation(fields: [post_id], references: [id])
+  user      User     @relation(fields: [user_id], references: [id])
+  createdAt DateTime
+}
