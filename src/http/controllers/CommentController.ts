@@ -5,46 +5,41 @@ import { ZodError, z } from "zod"
 import { RemovePostService } from "../../services/RemovePostService"
 import { ResourceDontExist } from "../../errors/ResourceDontExists"
 import { EditPostService } from "../../services/EditPostService"
-import { ListAllPostService } from "../../services/ListAllPostsService"
-import { AddPostService } from "../../services/AddPostService"
+import { ICommentRepository } from "../../repositories/CommentRepository"
+import { CommentRepositoryInMemory } from "../../repositories/InMemory/CommentRepositoryMemory"
+import { ListAllComments } from "../../services/ListAllCommentService"
+import { ListAllCommentsByPostId } from "../../services/ListAllCommentByPostIdService"
+import { AddCommentstService } from "../../services/AddCommentService"
 import { UserRepositoryMemory } from "../../repositories/InMemory/UserRepositoryMemory"
+import { EditCommentstService } from "../../services/EditCommentService"
+import { RemoveCommentService } from "../../services/RemoveCommentService"
 
-const  schemaPostInput = z.object({
-    type:z.string(),
-    name:z.string(),
-    description:z.string(),
-    contact1: z.string(),
-    contact2: z.string(),
-    user_id: z.string(),
-    latitude: z.number().nullable(),
-    longitude: z.number().nullable(),
-    gender: z.string(),
-    age_id:z.string(),
-    disaperAt: z.string().nullable(),
-    foundAt: z.string().nullable(),
-    localFound: z.string(),
-    localDisaper:z.string(),
-    city_id: z.string(), 
+const  schemaCommentInput = z.object({
+   comment: z.string(),
+   post_id: z.string()
 }) 
-export class PostController {
-    private postRepository: IPostRepository
+export class CommnetController {
+    private commentRepository: ICommentRepository
 
     constructor() {
-        this.postRepository = new PostRepositoryInMemory()    
+        this.commentRepository = new CommentRepositoryInMemory()   
+       
     }
 
     public list = async (req: Request, res: Response) => {
-        const posts = await new ListAllPostService(this.postRepository).execute()
-        return res.status(200).send({posts})
+       
+        const {id} = z.object({id:z.string()}).parse(req.params)
+        const comments = await new ListAllCommentsByPostId(this.commentRepository).execute(id)
+        return res.status(200).send({comments})
     }
     public get = async (req:Request, res : Response) => {
         try {
             const {id} = z.object({id:z.string()}).parse(req.params)
-            const post = await this.postRepository.findById(id)
-            if (!post) {
+            const comment = await this.commentRepository.findById(id)
+            if (!comment) {
                return res.status(404).send({error: "Resource Not Found"})
             }
-            res.send({post})
+            res.send({comment})
         } catch (error) {
             if (error instanceof ZodError) {
               return  res.status(403).send({error: error.issues})
@@ -55,10 +50,12 @@ export class PostController {
 
     public store = async (req:Request, res: Response) => {
         try {
-            const data = schemaPostInput.parse(req.body)
-            const userRepository=new UserRepositoryMemory()
-            const post = await new AddPostService(this.postRepository,userRepository).execute({name: data.name,age_id:data.age_id, city_id: data.city_id,contact1: data.contact1, description: data.description,gender: data.gender,img:"",status:"",type:data.type,user_id:data.user_id,foundAt: data.foundAt, localFound: data.localFound, localDisaper: data.localDisaper,contact2: data.contact2,img2:null,disaperAt: data.disaperAt,latitude:data.latitude,longitude: data.longitude}) 
-            return res.status(201).send({post})
+            const data = schemaCommentInput.parse(req.body)
+            const iduser = req.id.toString()
+            const postRepository = new PostRepositoryInMemory()
+            const userRepository = new UserRepositoryMemory()
+            const comment = await new AddCommentstService(this.commentRepository,postRepository,userRepository).execute({comment:data.comment, user_id:iduser,post_id: data.post_id})
+            return res.status(201).send({comment})
       
         } catch (error) {
             if(error instanceof ZodError) return res.status(403).send({error:error.issues})
@@ -67,11 +64,11 @@ export class PostController {
     }
     public update = async (req:Request, res: Response) => {
         try {
-            const data = schemaPostInput.parse(req.body)
+            const data = schemaCommentInput.parse(req.body)
             const {id} = z.object({id:z.string()}).parse(req.params)
 
-            const post = await new EditPostService(this.postRepository).execute(data,id)
-            return res.status(200).send({post})
+            const comment = await new EditCommentstService(this.commentRepository).execute(data,id)
+            return res.status(200).send({comment})
       
         } catch (error) {
             if(error instanceof ZodError) return res.status(403).send({error:error.issues})
@@ -83,7 +80,7 @@ export class PostController {
     public delete = async (req: Request, res: Response) => {
         try {
             const {id} = z.object({id: z.string()}).parse(req.params)
-            await new RemovePostService(this.postRepository).execute(id)
+            await new RemoveCommentService(this.commentRepository).execute(id)
             return res.status(200).send()
         } catch (error) {
             if(error instanceof ZodError) return res.status(403).send({error:error.issues})

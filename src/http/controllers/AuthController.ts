@@ -54,7 +54,7 @@ export class AuthController {
       try { 
             const {email, password} = schemaValidateLogin.parse(req.body)   
             const user = await this.userAuthService.execute({email,password})
-            const token = jwt.sign({id:user.id!}, process.env.JSONTOKEN!,{expiresIn:60*60})
+            const token = jwt.sign({id:user.id}, process.env.JSONTOKEN!,{expiresIn:60*60})
             res.status(200).send({user,token})
         } catch (err) {
             if (err instanceof ResourceDontExist) {

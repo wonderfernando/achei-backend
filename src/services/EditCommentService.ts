@@ -10,7 +10,7 @@ interface IComment{
     comment?: string,
 }
 export class EditCommentstService {
-    constructor(private commentRespository: ICommentRepository, private postRepository: IPostRepository,private userRepository: IUserRepository) {}
+    constructor(private commentRespository: ICommentRepository) {}
     async execute(data :IComment,id:string){
         const comment = await this.commentRespository.update(data,id)
         return comment

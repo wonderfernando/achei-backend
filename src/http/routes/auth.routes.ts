@@ -5,10 +5,12 @@ import { tokenValidate } from "../middlewares/tokenvalidate"
 const authController = new AuthController()
 const userController = new UserController()
 const postController = new PostController()
+const commentController = new CommnetController()
 import multer from "multer"
 import { resolve } from "path"
 import { multerConfig } from "../middlewares/uploadimg"
 import { PostController } from "../controllers/PostController"
+import { CommnetController } from "../controllers/CommentController"
 const routes = Router()
 routes.post("/register", authController.register)
 routes.post("/login", authController.login)
@@ -34,4 +36,10 @@ routes.get("/posts", postController.list)
 routes.get("/posts/:id", postController.get)
 routes.post("/posts", postController.store)
 routes.put("/posts/:id", postController.update)
+routes.delete("/posts/:id", postController.delete)
+
+routes.get("/posts/comments/:id", commentController.list)
+
+
+
 export {routes}

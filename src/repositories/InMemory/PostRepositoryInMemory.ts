@@ -27,8 +27,8 @@ export class PostRepositoryInMemory implements IPostRepository {
         return this.posts
     }
     async findById (id: string){
-        const user = this.posts.find(user => user.id===id)
-        return user || null
+        const post = this.posts.find(post => post.id===id)
+        return post || null
     };
     async findByEmail(email:string){
         null
