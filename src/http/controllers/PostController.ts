@@ -56,8 +56,9 @@ export class PostController {
     public store = async (req:Request, res: Response) => {
         try {
             const data = schemaPostInput.parse(req.body)
+            const idUser = req.id
             const userRepository=new UserRepositoryMemory()
-            const post = await new AddPostService(this.postRepository,userRepository).execute({name: data.name,age_id:data.age_id, city_id: data.city_id,contact1: data.contact1, description: data.description,gender: data.gender,img:"",status:"",type:data.type,user_id:data.user_id,foundAt: data.foundAt, localFound: data.localFound, localDisaper: data.localDisaper,contact2: data.contact2,img2:null,disaperAt: data.disaperAt,latitude:data.latitude,longitude: data.longitude}) 
+            const post = await new AddPostService(this.postRepository,userRepository).execute({name: data.name,age_id:data.age_id, city_id: data.city_id,contact1: data.contact1, description: data.description,gender: data.gender,img:"",status:"",type:data.type,user_id:idUser,foundAt: data.foundAt, localFound: data.localFound, localDisaper: data.localDisaper,contact2: data.contact2,img2:null,disaperAt: data.disaperAt,latitude:data.latitude,longitude: data.longitude}) 
             return res.status(201).send({post})
       
         } catch (error) {

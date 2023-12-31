@@ -1,13 +1,9 @@
 import { Request, Response } from "express"
 import { PostRepositoryInMemory } from "../../repositories/InMemory/PostRepositoryInMemory"
-import { IPostRepository } from "../../repositories/PostRepository"
 import { ZodError, z } from "zod"
-import { RemovePostService } from "../../services/RemovePostService"
 import { ResourceDontExist } from "../../errors/ResourceDontExists"
-import { EditPostService } from "../../services/EditPostService"
 import { ICommentRepository } from "../../repositories/CommentRepository"
 import { CommentRepositoryInMemory } from "../../repositories/InMemory/CommentRepositoryMemory"
-import { ListAllComments } from "../../services/ListAllCommentService"
 import { ListAllCommentsByPostId } from "../../services/ListAllCommentByPostIdService"
 import { AddCommentstService } from "../../services/AddCommentService"
 import { UserRepositoryMemory } from "../../repositories/InMemory/UserRepositoryMemory"
@@ -51,7 +47,7 @@ export class CommnetController {
     public store = async (req:Request, res: Response) => {
         try {
             const data = schemaCommentInput.parse(req.body)
-            const iduser = req.id.toString()
+            const iduser = req.id
             const postRepository = new PostRepositoryInMemory()
             const userRepository = new UserRepositoryMemory()
             const comment = await new AddCommentstService(this.commentRepository,postRepository,userRepository).execute({comment:data.comment, user_id:iduser,post_id: data.post_id})
@@ -66,7 +62,6 @@ export class CommnetController {
         try {
             const data = schemaCommentInput.parse(req.body)
             const {id} = z.object({id:z.string()}).parse(req.params)
-
             const comment = await new EditCommentstService(this.commentRepository).execute(data,id)
             return res.status(200).send({comment})
       
