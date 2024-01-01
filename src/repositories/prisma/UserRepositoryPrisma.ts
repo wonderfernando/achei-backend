@@ -1,9 +1,8 @@
-import { randomUUID } from "crypto";
 import { IUser } from "../../entitites/User";
 import { IUserRepository } from "../UserRepository";
 import { prismaClient } from "../../utils/prismaClientLib";
 
-export class UserRepositoryMemory implements IUserRepository {
+export class UserRepositoryPrisma implements IUserRepository {
 
     async create (data: IUser) { 
         const newUser = await prismaClient.user.create({data})  
