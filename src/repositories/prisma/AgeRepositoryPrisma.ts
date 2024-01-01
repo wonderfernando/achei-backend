@@ -3,6 +3,7 @@ import { IPost } from "../../entitites/Post";
 import { IPostRepository } from "../PostRepository";
 import { IAgeRepository } from "../AgeRepository";
 import { IAge } from "../../entitites/Age";
+import { prismaClient } from "../../utils/prismaClientLib";
 
 
 export class AgeRepositoryPrisma implements IAgeRepository {
@@ -10,26 +11,22 @@ export class AgeRepositoryPrisma implements IAgeRepository {
     ages: IAge[] = []
 
     async create (data: IAge) { 
-        const newAge = {...data, id: randomUUID()}
-        this.ages.push(newAge)    
+        const newAge = await prismaClient.age.create({data})
         return newAge
     };
-    async update (data:{[key:string]:any}, id: string) {
-        const indexOf = this.ages.findIndex(age => age.id===id)
-        const age = this.ages[indexOf]
-        this.ages[indexOf] = {...age,...data}
-        return this.ages[indexOf]
+    async update (data:Partial<IAge>, id: string) {
+        const age = await prismaClient.age.update({where:{id}, data})
+        return age
     }
     async delete (id: string){
-        const newAges = this.ages.filter(age=> age.id===id) 
-        this.ages = newAges
-        return true
+        const age = await prismaClient.age.delete({where:{id}})
+        return age != null
     };
     async list(){
-        return this.ages
+        return await prismaClient.age.findMany()
     }
     async findById (id: string){
-        const age = this.ages.find(age => age.id===id)
+        const age = await prismaClient.age.findUnique({where:{id}})
         return age || null
     };
    

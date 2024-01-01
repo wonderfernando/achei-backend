@@ -86,3 +86,9 @@ model Like {
 
   @@map("likes")
 }
+
+model Age {
+  id        String   @id @default(uuid())
+  age       String
+  createdAt DateTime @default(now())
+}
