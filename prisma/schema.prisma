@@ -15,6 +15,8 @@ model City {
   city String
   User User[]
   Post Post[]
+
+  @@map("cities")
 }
 
 model User {
@@ -28,6 +30,8 @@ model User {
   city_id   String
   createdAt DateTime  @default(now())
   Comment   Comment[]
+
+  @@map("users")
 }
 
 model Post {
@@ -53,6 +57,8 @@ model Post {
   city         City      @relation(fields: [city_id], references: [id])
   createdAt    DateTime  @default(now())
   Comment      Comment[]
+
+  @@map("posts")
 }
 
 model Comment {
@@ -63,4 +69,6 @@ model Comment {
   post      Post     @relation(fields: [post_id], references: [id])
   user      User     @relation(fields: [user_id], references: [id])
   createdAt DateTime
+
+  @@map("comments")
 }
