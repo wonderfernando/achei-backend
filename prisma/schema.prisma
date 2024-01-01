@@ -22,7 +22,7 @@ model City {
 model User {
   id        String    @id @default(uuid())
   name      String
-  email     String
+  email     String    @unique
   password  String
   admin     Boolean
   phone     String
@@ -30,6 +30,7 @@ model User {
   city_id   String
   createdAt DateTime  @default(now())
   Comment   Comment[]
+  Like      Like[]
 
   @@map("users")
 }
@@ -57,6 +58,7 @@ model Post {
   city         City      @relation(fields: [city_id], references: [id])
   createdAt    DateTime  @default(now())
   Comment      Comment[]
+  Like         Like[]
 
   @@map("posts")
 }
@@ -71,4 +73,15 @@ model Comment {
   createdAt DateTime
 
   @@map("comments")
+}
+
+model Like {
+  id        String   @id @default(uuid())
+  user_id   String
+  post_id   String
+  post      Post     @relation(fields: [post_id], references: [id])
+  user      User     @relation(fields: [user_id], references: [id])
+  createdAt DateTime
+
+  @@map("likes")
 }
