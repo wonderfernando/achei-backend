@@ -6,7 +6,7 @@ import { ICommentRepository } from "../CommentRepository";
 import { prismaClient } from "../../utils/prismaClientLib";
 
 
-export class CommentRepositoryInMemory implements ICommentRepository {
+export class CommentRepositoryPrisma implements ICommentRepository {
 
     async create (data: IComment) { 
         const newComment = await prismaClient.comment.create({data})
