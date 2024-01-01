@@ -11,10 +11,11 @@ datasource db {
 }
 
 model City {
-  id   String @id @default(uuid())
-  city String
-  User User[]
-  Post Post[]
+  id        String   @id @default(uuid())
+  city      String
+  User      User[]
+  Post      Post[]
+  createdAt DateTime @default(now())
 
   @@map("cities")
 }
@@ -70,7 +71,7 @@ model Comment {
   post_id   String
   post      Post     @relation(fields: [post_id], references: [id])
   user      User     @relation(fields: [user_id], references: [id])
-  createdAt DateTime
+  createdAt DateTime @default(now())
 
   @@map("comments")
 }
@@ -81,7 +82,7 @@ model Like {
   post_id   String
   post      Post     @relation(fields: [post_id], references: [id])
   user      User     @relation(fields: [user_id], references: [id])
-  createdAt DateTime
+  createdAt DateTime @default(now())
 
   @@map("likes")
 }
