@@ -40,8 +40,9 @@ routes.post("/posts", postController.store)
 routes.put("/posts/:id", postController.update)
 routes.delete("/posts/:id", postController.delete)
 
-routes.get("/posts/comments/:id", commentController.list)
+routes.get("/posts/:id/comments", commentController.list)
 
+routes.post("/posts/:id/comments", commentController.store)
 
 
 export {routes}

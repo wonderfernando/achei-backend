@@ -14,7 +14,6 @@ import { UserRepositoryPrisma } from "../../repositories/prisma/UserRepositoryPr
 
 const  schemaCommentInput = z.object({
    comment: z.string(),
-   post_id: z.string()
 }) 
 export class CommnetController {
     private commentRepository: ICommentRepository
@@ -49,10 +48,11 @@ export class CommnetController {
     public store = async (req:Request, res: Response) => {
         try {
             const data = schemaCommentInput.parse(req.body)
+            const {id : idPost} = z.object({id: z.string()}).parse(req.params)
             const iduser = req.id
             const postRepository = new PostRepositoryPrisma()
             const userRepository = new UserRepositoryPrisma()
-            const comment = await new AddCommentstService(this.commentRepository,postRepository,userRepository).execute({comment:data.comment, user_id:iduser,post_id: data.post_id})
+            const comment = await new AddCommentstService(this.commentRepository,postRepository,userRepository).execute({comment:data.comment, user_id:iduser,post_id: idPost})
             return res.status(201).send({comment})
       
         } catch (error) {
