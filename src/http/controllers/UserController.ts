@@ -4,12 +4,13 @@ import { IUserRepository } from "../../repositories/UserRepository"
 import { ListAllusersService } from "../../services/ListAllUsersService"
 import { GetProfileById } from "../../services/GetProfileById"
 import { ZodError, z } from "zod"
+import { UserRepositoryPrisma } from "../../repositories/prisma/UserRepositoryPrisma"
 const schemaGetUser = z.object({id: z.string()})
 export class UserController {
     private userRepository :IUserRepository
     private  listUsersService: ListAllusersService
     constructor() {
-        this.userRepository = new UserRepositoryMemory()
+        this.userRepository = new UserRepositoryPrisma()
         this.listUsersService = new ListAllusersService(this.userRepository)
     }
 

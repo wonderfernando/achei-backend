@@ -1,19 +1,13 @@
 import { Request, Response } from "express"
 import { PostRepositoryInMemory } from "../../repositories/InMemory/PostRepositoryInMemory"
-import { IPostRepository } from "../../repositories/PostRepository"
 import { ZodError, z } from "zod"
-import { RemovePostService } from "../../services/RemovePostService"
 import { ResourceDontExist } from "../../errors/ResourceDontExists"
-import { EditPostService } from "../../services/EditPostService"
-import { ListAllPostService } from "../../services/ListAllPostsService"
-import { AddPostService } from "../../services/AddPostService"
 import { UserRepositoryMemory } from "../../repositories/InMemory/UserRepositoryMemory"
-import { ILike } from "../../entitites/Like"
-import { LikeRepositoryInMemory } from "../../repositories/InMemory/LikeRepositoryMemory"
 import { ILikeRepository } from "../../repositories/LikeRepository"
 import { AddLikeInPostService } from "../../services/AddLikeInPostService"
 import { RemoveLikeInPostService } from "../../services/RemoveLikeInPost"
 import { ListAllLikeInPostService } from "../../services/ListAllLikeInPostService"
+import { LikeRepositoryIPrisma } from "../../repositories/prisma/LikeRepositoryPrisma"
 
 const  schemaLikeInput = z.object({
     post_id: z.string(), 
@@ -22,7 +16,7 @@ export class LikeController {
     private likeRepository: ILikeRepository
 
     constructor() {
-        this.likeRepository = new LikeRepositoryInMemory()    
+        this.likeRepository = new LikeRepositoryIPrisma()    
     }
 
     public list = async (req: Request, res: Response) => {

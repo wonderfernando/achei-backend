@@ -3,12 +3,14 @@ import { PostRepositoryInMemory } from "../../repositories/InMemory/PostReposito
 import { ZodError, z } from "zod"
 import { ResourceDontExist } from "../../errors/ResourceDontExists"
 import { ICommentRepository } from "../../repositories/CommentRepository"
-import { CommentRepositoryInMemory } from "../../repositories/InMemory/CommentRepositoryMemory"
 import { ListAllCommentsByPostId } from "../../services/ListAllCommentByPostIdService"
 import { AddCommentstService } from "../../services/AddCommentService"
 import { UserRepositoryMemory } from "../../repositories/InMemory/UserRepositoryMemory"
 import { EditCommentstService } from "../../services/EditCommentService"
 import { RemoveCommentService } from "../../services/RemoveCommentService"
+import { CommentRepositoryPrisma } from "../../repositories/prisma/CommentRespostoryPrisma"
+import { PostRepositoryPrisma } from "../../repositories/prisma/PostRepositoryPrisma"
+import { UserRepositoryPrisma } from "../../repositories/prisma/UserRepositoryPrisma"
 
 const  schemaCommentInput = z.object({
    comment: z.string(),
@@ -18,7 +20,7 @@ export class CommnetController {
     private commentRepository: ICommentRepository
 
     constructor() {
-        this.commentRepository = new CommentRepositoryInMemory()   
+        this.commentRepository = new CommentRepositoryPrisma()   
        
     }
 
@@ -48,8 +50,8 @@ export class CommnetController {
         try {
             const data = schemaCommentInput.parse(req.body)
             const iduser = req.id
-            const postRepository = new PostRepositoryInMemory()
-            const userRepository = new UserRepositoryMemory()
+            const postRepository = new PostRepositoryPrisma()
+            const userRepository = new UserRepositoryPrisma()
             const comment = await new AddCommentstService(this.commentRepository,postRepository,userRepository).execute({comment:data.comment, user_id:iduser,post_id: data.post_id})
             return res.status(201).send({comment})
       

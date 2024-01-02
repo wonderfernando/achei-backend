@@ -15,6 +15,8 @@ const routes = Router()
 routes.post("/register", authController.register)
 routes.post("/login", authController.login)
 routes.post("/token", authController.tokenValidate)
+routes.use("/",tokenValidate)
+
 
 
 //users

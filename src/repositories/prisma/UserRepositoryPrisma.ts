@@ -21,7 +21,7 @@ export class UserRepositoryPrisma implements IUserRepository {
     }
     async findById (id: string){
         const user = await prismaClient.user.findUnique({where:{id}})
-        return user || null
+        return user
     };
     async findByEmail(email:string){
         const user = await prismaClient.user.findUnique({where:{email}})

@@ -1,9 +1,9 @@
+import { IPost } from "../entitites/Post";
 import { ResourceDontExist } from "../errors/ResourceDontExists";
 import { IPostRepository } from "../repositories/PostRepository";
 
 interface IPostData{
-    id?:string,
-    type?:string|null,
+     type?:string|null,
     name?:string|null,
     description?:string|null,
     img?: string|null,
@@ -21,11 +21,11 @@ interface IPostData{
     localFound?: string|null,
     localDisaper?:string|null,
     city_id?: string|null, 
-    createdAt?: Date|string,
+     
 }
 export class EditPostService {
     constructor(private postRepository : IPostRepository) {}
-    async execute(data: IPostData, id :string){
+    async execute(data: Partial<IPost>, id :string){
         const post = await this.postRepository.findById(id)
         if (!post) {
             throw new ResourceDontExist()

@@ -7,6 +7,7 @@ import { ResourceDontExist } from "../../errors/ResourceDontExists";
 import "dotenv/config"
 import jwt from "jsonwebtoken"
 import { GetProfileById } from "../../services/GetProfileById";
+import { UserRepositoryPrisma } from "../../repositories/prisma/UserRepositoryPrisma";
 const schemaValidateLogin = z.object({
     email: z.string().email("email is required!"),
     password: z.string().min(1,"password is required!")
@@ -28,7 +29,7 @@ export class AuthController {
     private userRegisterService 
     private userAuthService : UserAuthService
     constructor(){
-        this.userRepository = new UserRepositoryMemory()
+        this.userRepository = new UserRepositoryPrisma()
         this.userRegisterService = new UserRegisterService(this.userRepository)
         this.userAuthService=  new UserAuthService(this.userRepository)
      }
@@ -46,7 +47,7 @@ export class AuthController {
                 if (error instanceof ZodError) {
                     res.status(403).send({error: error.issues}) 
                 }
-                res.status(401).send({error:error.message}) 
+                res.status(401).send({error:error}) 
         }
         
      }
@@ -54,7 +55,7 @@ export class AuthController {
       try { 
             const {email, password} = schemaValidateLogin.parse(req.body)   
             const user = await this.userAuthService.execute({email,password})
-            const token = jwt.sign({id:user.id}, process.env.JSONTOKEN!,{expiresIn:60*60})
+            const token = jwt.sign({id:user.id}, process.env.JSONTOKEN!, {expiresIn: "1h"})
             res.status(200).send({user,token})
         } catch (err) {
             if (err instanceof ResourceDontExist) {
@@ -72,7 +73,7 @@ export class AuthController {
         try{
             const {email, password,admin,city_id,name,phone} = schemaValidateRegister.parse(req.body) 
             const newUser = await this.userRegisterService.execute({email,name,password,admin,city_id,phone})
-            const token = jwt.sign({id: newUser.id}, process.env.JSONTOKEN!, {expiresIn: 60 * 60})
+            const token = jwt.sign({id: newUser.id}, process.env.JSONTOKEN!, {expiresIn: "1h"})
             return res.status(201).send({newUser,token})
    
         }catch(err){
