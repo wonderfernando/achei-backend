@@ -8,9 +8,11 @@ import { AddLikeInPostService } from "../../services/AddLikeInPostService"
 import { RemoveLikeInPostService } from "../../services/RemoveLikeInPost"
 import { ListAllLikeInPostService } from "../../services/ListAllLikeInPostService"
 import { LikeRepositoryIPrisma } from "../../repositories/prisma/LikeRepositoryPrisma"
+import { UserRepositoryPrisma } from "../../repositories/prisma/UserRepositoryPrisma"
+import { PostRepositoryPrisma } from "../../repositories/prisma/PostRepositoryPrisma"
 
 const  schemaLikeInput = z.object({
-    post_id: z.string(), 
+    id: z.string(), 
 }) 
 export class LikeController {
     private likeRepository: ILikeRepository
@@ -22,7 +24,7 @@ export class LikeController {
     public list = async (req: Request, res: Response) => {
         try {
             const {id} = z.object({id: z.string()}).parse(req.params)
-            const postRepository = new PostRepositoryInMemory() 
+            const postRepository = new PostRepositoryPrisma() 
             const likes = await new ListAllLikeInPostService(this.likeRepository,postRepository).execute(id)
             return res.status(200).send({likes})
         } catch (error) {
@@ -54,14 +56,14 @@ export class LikeController {
 
     public store = async (req:Request, res: Response) => {
         try {
-            const data = schemaLikeInput.parse(req.body)
+            const {id: idPost} = schemaLikeInput.parse(req.params)
             const idUser = req.id
-            const userRepository = new UserRepositoryMemory()
-            const postRepository = new PostRepositoryInMemory()
+            const userRepository = new UserRepositoryPrisma()
+            const postRepository = new PostRepositoryPrisma()
             const like = await new AddLikeInPostService(
                 this.likeRepository,postRepository,userRepository).execute({
                     user_id: idUser,
-                    post_id:data.post_id,
+                    post_id:idPost,
                 }) 
             return res.status(201).send({like})
       

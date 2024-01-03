@@ -9,6 +9,8 @@ import { prismaClient } from "../../utils/prismaClientLib";
 
 
 export class LikeRepositoryIPrisma implements ILikeRepository {
+    public update = async (data: Partial<ILike>, id: string) => null
+     public list = async () =>  []
    
    async create (data: ILike) { 
         const newLike = await prismaClient.like.create({data})   
@@ -32,8 +34,6 @@ export class LikeRepositoryIPrisma implements ILikeRepository {
         return likes
     }
 
-    
-    update: (data: { [key: string]: any; }, id: string) => Promise<ILike | null>;
-    list: () => Promise<ILike[]>;
+ 
   
 }

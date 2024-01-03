@@ -1,7 +1,6 @@
 import { IUserRepository } from "../repositories/UserRepository";
 import { ResourceDontExist } from "../errors/ResourceDontExists";
 import { IPostRepository } from "../repositories/PostRepository";
-import { ILike } from "../entitites/Like";
 import { ILikeRepository } from "../repositories/LikeRepository";
  
 export class ListAllLikeInPostService {

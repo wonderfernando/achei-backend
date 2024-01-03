@@ -10,7 +10,12 @@ export class AddLikeInPostService {
         const user = await this.userRepository.findById(data.user_id)
         const post = await this.postRepository.findById(data.post_id)
         if (!user || !post) {
+            console.log(user, post)
             throw new ResourceDontExist()
+        }
+        const isLiked = await this.likeRespository.foundByPostIdUSerId(data.post_id,data.user_id)
+        if (isLiked) {
+            throw new Error("Cant like twice!")
         }
         const like = await this.likeRespository.create(data)
         return like
