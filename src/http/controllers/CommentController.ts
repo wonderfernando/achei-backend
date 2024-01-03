@@ -63,10 +63,10 @@ export class CommnetController {
     public update = async (req:Request, res: Response) => {
         try {
             const data = schemaCommentInput.parse(req.body)
-            const {id} = z.object({id:z.string()}).parse(req.params)
+            const {id} = z.object({id: z.string()}).parse(req.params)
             const comment = await new EditCommentstService(this.commentRepository).execute(data,id)
-            return res.status(200).send({comment})
-      
+            return res.status(200).send({comment})    
+    
         } catch (error) {
             if(error instanceof ZodError) return res.status(403).send({error:error.issues})
             if(error instanceof ResourceDontExist) return res.status(404).send({error: "Resource Not Found"})

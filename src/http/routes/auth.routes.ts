@@ -41,8 +41,8 @@ routes.put("/posts/:id", postController.update)
 routes.delete("/posts/:id", postController.delete)
 
 routes.get("/posts/:id/comments", commentController.list)
-
+routes.get("/posts/comments/:id", commentController.get)
 routes.post("/posts/:id/comments", commentController.store)
-
-
+routes.put("/posts/comments/:id", commentController.update)
+routes.delete("/posts/comments/:id", commentController.delete)
 export {routes}

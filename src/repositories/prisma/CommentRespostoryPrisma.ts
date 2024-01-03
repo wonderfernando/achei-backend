@@ -13,9 +13,9 @@ export class CommentRepositoryPrisma implements ICommentRepository {
         return newComment
     };
 
-    async update (data: Partial<IComment>, id: string) {
+    async update (data: Partial<IComment>, id: string)  {
         const comment =  await prismaClient.comment.update({where:{id}, data})
-        return comment
+        return comment || null
     }
     async delete (id: string){
         const comment = await prismaClient.comment.delete({where:{id}})    
