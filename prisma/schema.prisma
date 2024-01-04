@@ -51,7 +51,7 @@ model Post {
   gender       String
   status       String
   age_id       String
-  disaperAt    String?
+  disaperAt    DateTime?
   foundAt      DateTime?
   localFound   String?
   localDisaper String?

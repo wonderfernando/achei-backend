@@ -16,7 +16,7 @@ Aplicativo para procurar pessoas desaparecidas
 - Deve ser possivel listar publicacoes por provincias [x]
 - Deve ser possivel listar por nome [x]
 
-- Deve ser possivel listar por filtros dinamicos [] --- PENDENTE!!!
+- Deve ser possivel listar por filtros dinamicos [x]
 - Deve ser possivel listar publicacoes por proximidade (Ate 100m) --- PENDENTE!!!
 - Deve ser possivel listar publicacoes por fotos (IA) -- PENDENTE!!!
 
@@ -49,5 +49,5 @@ Aplicativo para procurar pessoas desaparecidas
 ## R N funcionais
 
 - A senha deve ser criptografada [x]
-- A autenticao deve ser feita com JWT
+- A autenticao deve ser feita com JWT []
 - Deve listar 20 publicacoes por vez

@@ -34,11 +34,12 @@ routes.post("/upload", m.single("arquivo") ,(req, res)=>{
    console.log(arquivo)
     res.status(201).send("sucesso")
 })
-
-
+routes.get("/posts/search", postController.search)
 routes.get("/posts", postController.list)
 routes.get("/posts/:id", postController.get)
-routes.post("/posts", postController.store)
+
+routes.post("/posts",m.single("file"),postController.store)
+
 routes.put("/posts/:id", postController.update)
 routes.delete("/posts/:id", postController.delete)
 
@@ -47,10 +48,7 @@ routes.get("/posts/comments/:id", commentController.get)
 routes.post("/posts/:id/comments", commentController.store)
 routes.put("/posts/comments/:id", commentController.update)
 routes.delete("/posts/comments/:id", commentController.delete)
-
 routes.post("/posts/:id/likes", likeController.store)
 routes.get("/posts/:id/likes", likeController.list)
-
 routes.delete("/posts/likes/:id", likeController.delete)
-
 export {routes}

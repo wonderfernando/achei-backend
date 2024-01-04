@@ -2,8 +2,6 @@ import { randomUUID } from "crypto";
 import { IPost } from "../../entitites/Post";
 import { IPostRepository } from "../PostRepository";
 import { prismaClient } from "../../utils/prismaClientLib";
-
-
 export class PostRepositoryPrisma implements IPostRepository {
     async create (data: IPost) : Promise<IPost>{ 
         const newPost = await prismaClient.post.create({data})
@@ -40,8 +38,11 @@ export class PostRepositoryPrisma implements IPostRepository {
         })
         return posts 
     }
-  async search(name: string, provinceId: any, ageId: any): Promise<IPost[]> {
-        throw new Error("Method not implemented.");
+  async search(name: string|null, provinceId: string|null, ageId: string|null): Promise<IPost[]> {
+        const posts = await prismaClient.post.findMany({
+            where:{name:{contains: name||""}, age_id:ageId||undefined, city_id: provinceId||undefined}
+        })
+        return posts
     }
   
 }
